@@ -1,6 +1,6 @@
 public class Entity {
     int health;
-    int death;
+    int damage;
     boolean poisoned;
     boolean froze;
     public Entity(int h, int d) {

@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("ireugnr");
+        Weapon x = new Weapon(0, "sword");
+        System.out.println(x.damage);
     }
 }

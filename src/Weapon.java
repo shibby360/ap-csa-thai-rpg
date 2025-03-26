@@ -6,4 +6,7 @@ public class Weapon {
         this.damage = damage;
         this.name = name;
     }
+    public String toString() {
+        
+    }
 }

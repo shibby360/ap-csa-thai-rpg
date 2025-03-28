@@ -6,4 +6,7 @@ public class PoisonPot extends Potion {
         length = l;
         name = "poison potion";
     }
+    public String toString() {
+        return super.toString() + ";" + this.damage + ";" + this.length;
+    }
 }

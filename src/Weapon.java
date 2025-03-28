@@ -7,6 +7,6 @@ public class Weapon {
         this.name = name;
     }
     public String toString() {
-        
+        return this.name + ";" + this.damage;
     }
 }

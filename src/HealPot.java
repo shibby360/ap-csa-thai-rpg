@@ -4,4 +4,7 @@ public class HealPot extends Potion {
         heal = h;
         name = "healing potion";
     }
+    public String toString() {
+        return super.toString() + ";" + this.heal;
+    }
 }

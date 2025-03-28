@@ -4,4 +4,7 @@ public class FreezePot extends Potion {
         length = l;
         name = "freezing potion";
     }
+    public String toString() {
+        return super.toString() + ";" + this.length;
+    }
 }

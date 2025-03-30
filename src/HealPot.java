@@ -5,6 +5,6 @@ public class HealPot extends Potion {
         name = "healing potion";
     }
     public String toString() {
-        return super.toString() + ";" + this.heal;
+        return super.toString() + ";heal: " + this.heal;
     }
 }

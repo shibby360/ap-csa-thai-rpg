@@ -24,7 +24,7 @@ public class Main {
                 System.out.println("current: " + p.weapon);
                 if(weapons.size() != 0) {
                     int wc = Tools.intInput("pick a weapon(index, -1 for current): ");
-                    while(wc < -1 || wc > weapons.size()) {
+                    while(wc < -1 || wc >= weapons.size()) {
                         wc = Tools.intInput("pick a weapon(index, -1 for current): ");
                     }
                     if(wc == -1) {
@@ -42,9 +42,47 @@ public class Main {
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
                         System.out.println(x.type.toUpperCase()+"\nhealth: " + p.health + "\nenemy health: " + x.health);
-                        // add attack or potion use option
-                        p.attack(x);
+                        int ac = Tools.intInput("[1]attack\n[2]potion\n");
+                        if(ac == 1) {
+                            p.attack(x);
+                        } else if(ac == 2) {
+                            // what if they just suck and don't have any potions
+                            int pc = Tools.intInput("[1]heal potion\n[2]poison potion\n[3]freeze potion\n");
+                            String nm = "";
+                            ArrayList<Potion> potions = new ArrayList<Potion>();
+                            if(pc == 1)
+                                nm = "heal";
+                            else if(pc == 2)
+                                nm = "poison";
+                            else if(pc == 3)
+                                nm = "freeze";
+                            i = 0;
+                            for(Item y : p.inventory) {
+                                if(y instanceof Potion) {
+                                    if(((Potion)y).name.startsWith(nm)) {
+                                        potions.add((Potion)y);
+                                        System.out.println(i + ": " + (Potion)y);
+                                        i++;
+                                    }
+                                }
+                            }
+                            int wpc = Tools.intInput("pick a potion(index): ");
+                            while(wpc < 0 && wpc >= potions.size()) {
+                                wpc = Tools.intInput("pick a potion(index): ");
+                            }
+                            Potion pot = potions.get(wpc);
+                            if(pot instanceof FreezePot) {
+                                x.getFreeze((FreezePot)pot);
+                            } else if(pot instanceof HealPot) {
+                                p.health += ((HealPot)pot).heal;
+                            } else if(pot instanceof PoisonPot) {
+                                x.getPoison((PoisonPot)pot);
+                            }
+                        }
+
                         x.attack(p);
+                        x.takeFreeze();
+                        x.takePoison();
                         Tools.waitEnter();
                         Tools.clear();
                     }
@@ -59,15 +97,14 @@ public class Main {
                 }
                 Tools.waitEnter();
             } else if(c.equals("2")) {
+                // add item dropability
                 for(Item x : p.inventory) {
                     System.out.println(x);
                 }
                 Tools.waitEnter();
             } else if(c.equals("3")) {
-                // explore
-                // add inventory cap limit
-                p.inventory.add(items[(int)(Math.random()*items.length)]);
-                System.out.println("You got a " + p.inventory.get(p.inventory.size()-1)+ "!");
+                Item item = items[(int)(Math.random()*items.length)];
+                p.addInv(item, true);
                 Tools.waitEnter();
             } else if(c.equals("4")) {
                 break;

@@ -29,6 +29,9 @@ public class Tools {
         return false;
     }
     public static boolean isInt(String str) {
+        if(str.length() == 0) {
+            return false;
+        }
         for(int i = 0; i < str.length(); i++) {
             String s = str.substring(i, i+1);
             if(!isDigit(s)) {

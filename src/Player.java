@@ -31,7 +31,41 @@ public class Player extends Entity {
         if(weapon == null) {
             e.health -= this.damage + getDmgBoost();
         } else {
-            e.health -= weapon.damage + getDmgBoost();
+            e.health -= weapon.getDmg() + getDmgBoost();
+        }
+    }
+    public void addInv(Item i, boolean msg) {
+        if(inventory.size() >= 10) {
+            if(msg)
+                System.out.println("inventory full");
+            return;
+        } 
+        if(i instanceof Weapon) {
+            for(Item x : inventory) {
+                if(x instanceof Weapon) {
+                    if(((Weapon)x).name.equals(((Weapon)i).name)) {
+                        ((Weapon)x).level += 0.2;
+                        ((Weapon)x).level = Math.round(((Weapon)x).level * 10) / 10.0;
+                        if(msg)
+                            System.out.println("You got a " + x);
+                        return;
+                    }
+                }
+            }
+            inventory.add(i);
+            if(msg)
+                System.out.println("You got a " + i);
+            return;
+        }
+        inventory.add(i);
+        if(msg)
+            System.out.println("You got a " + i);
+    }
+    public void remInv(Item it) {
+        for(int i = 0; i < inventory.size(); i++) {
+            if(inventory.get(i) == it) {
+                inventory.remove(i);
+            }
         }
     }
 }

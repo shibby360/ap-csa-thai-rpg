@@ -6,7 +6,7 @@ public class Main {
         String name = "streamline";
         int level = 1;
         Player p = new Player(100, 10, name);
-        Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
+        Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
         while(true) {
             Tools.clear();
             String c = Tools.input("[1]play(level " + level + ")\n[2]inventory\n[3]explore\n[4]exit\n");
@@ -97,6 +97,10 @@ public class Main {
                             }
                             p.inventory.remove((Item)pot);
                         }
+
+                        if(x.health <= 0) {
+                            continue;
+                        }
                         if(!x.froze && enemyAtk) {
                             x.attack(p);
                         }
@@ -112,7 +116,12 @@ public class Main {
                 }
                 if(p.health > 0) {
                     System.out.println("you killed them all yay");
-                    level ++;
+                    if(level == Levels.levels().length) {
+                        System.out.println("you finished the whole game yay");
+                        break;
+                    } else {
+                        level ++;
+                    }
                 }
                 Tools.waitEnter();
             } else if(c.equals("2")) {

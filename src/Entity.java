@@ -26,7 +26,7 @@ public class Entity {
             System.out.println("poison left: " + poisonLeft);
             System.out.println("freeze left: " + freezeLeft);
         }
-        System.out.println("health: " + "\033[0;32m" + "-".repeat(health) + "\033[0m" + "-".repeat(maxHealth-health) + health + "/" + maxHealth);
+        System.out.println("health: (" + health + "/" + maxHealth + ")\033[0;32m" + "-".repeat(health) + "\033[0m" + "-".repeat(maxHealth-health));
     }
     public void takePoison() {
         if(!poisoned)
@@ -47,11 +47,11 @@ public class Entity {
     }
     public void getPoison(PoisonPot p) {
         poisoned = true;
-        poisonDmg = p.damage;
-        poisonLeft = p.length;
+        poisonDmg += p.damage;
+        poisonLeft += p.length;
     }
     public void getFreeze(FreezePot p) {
         froze = true;
-        freezeLeft = p.length;
+        freezeLeft += p.length;
     }
 }

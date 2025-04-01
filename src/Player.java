@@ -9,13 +9,11 @@ public class Player extends Entity {
         name = n;
     }
     public void battlePrep(Weapon w) {
-        health = 100;
-        damage = 5;
+        health = maxHealth;
         weapon = w;
     }
     public void battlePrep() {
-        health = 100;
-        damage = 5;
+        health = maxHealth;
     }
     public int getDmgBoost() {
         int boost = 0;

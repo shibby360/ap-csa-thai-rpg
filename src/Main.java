@@ -5,7 +5,7 @@ public class Main {
         // String name = Tools.input("whats your name? ");
         String name = "streamline";
         int level = 1;
-        Player p = new Player(150, 10, name);
+        Player p = new Player(100, 10, name);
         Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
         while(true) {
             Tools.clear();
@@ -35,19 +35,22 @@ public class Main {
                 } else {
                     p.battlePrep();
                 }
-                for(Enemy x : currlevel) {
+                for(int j = 0; j < currlevel.length; j++) {
+                    Enemy x = currlevel[j];
                     while(x.health > 0 && p.health > 0) {
                         Tools.clear();
                         System.out.println("level " + level);
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
-                        // display healths with a bar
-                        System.out.println(x.type.toUpperCase()+"\nhealth: " + p.health + "\nenemy health: " + x.health);
+                        p.printStats();
+                        System.out.println("(" + j + ")" + x.type.toUpperCase());
+                        x.printStats();
                         int potionCount = p.countItem("freeze,heal,poison");
                         String prompt = "[1]attack\n";
                         if(potionCount > 0)
                             prompt += "[2]potion\n";
                         int ac = Tools.intInput(prompt);
+                        boolean enemyAtk = true;
                         if(ac == 1) {
                             p.attack(x);
                         } else if(ac == 2 && potionCount > 0) {
@@ -88,12 +91,13 @@ public class Main {
                                 x.getFreeze((FreezePot)pot);
                             } else if(pot instanceof HealPot) {
                                 p.health += ((HealPot)pot).heal;
+                                enemyAtk = false;
                             } else if(pot instanceof PoisonPot) {
                                 x.getPoison((PoisonPot)pot);
                             }
                             p.inventory.remove((Item)pot);
                         }
-                        if(!x.froze) {
+                        if(!x.froze && enemyAtk) {
                             x.attack(p);
                         }
                         x.takeFreeze();

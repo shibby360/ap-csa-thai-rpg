@@ -7,6 +7,7 @@ public class Weapon extends Item {
         usable = false;
         this.damage = damage;
         this.name = name;
+        id = "weapon";
     }
     public String toString() {
         return "weapon:"+this.name + ";damage: " + this.getDmg() + ";level: " + (int)level + ", " + (int)((level-(int)level)*5) + "/5";

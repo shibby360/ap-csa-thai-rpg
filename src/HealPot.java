@@ -3,6 +3,7 @@ public class HealPot extends Potion {
     public HealPot(int h) {
         heal = h;
         name = "healing potion";
+        id = "heal";
     }
     public String toString() {
         return super.toString() + ";heal: " + this.heal;

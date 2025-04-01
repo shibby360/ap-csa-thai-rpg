@@ -3,6 +3,7 @@ public class DamagePot extends Potion {
     public DamagePot(int b) {
         boost = b;
         name = "damage potion";
+        id = "damage";
     }
     public String toString() {
         return super.toString() + ";damage: " + this.boost;

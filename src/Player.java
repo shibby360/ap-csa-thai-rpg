@@ -61,11 +61,12 @@ public class Player extends Entity {
         if(msg)
             System.out.println("You got a " + i);
     }
-    public void remInv(Item it) {
-        for(int i = 0; i < inventory.size(); i++) {
-            if(inventory.get(i) == it) {
-                inventory.remove(i);
-            }
+    public int countItem(String types) {
+        int i = 0;
+        for(Item x : inventory) {
+            if(types.indexOf(x.id) != -1)
+                i++;
         }
+        return i;
     }
 }

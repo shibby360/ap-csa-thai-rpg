@@ -41,33 +41,46 @@ public class Main {
                         System.out.println("level " + level);
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
+                        // display healths with a bar
                         System.out.println(x.type.toUpperCase()+"\nhealth: " + p.health + "\nenemy health: " + x.health);
-                        int ac = Tools.intInput("[1]attack\n[2]potion\n");
+                        int potionCount = p.countItem("freeze,heal,poison");
+                        String prompt = "[1]attack\n";
+                        if(potionCount > 0)
+                            prompt += "[2]potion\n";
+                        int ac = Tools.intInput(prompt);
                         if(ac == 1) {
                             p.attack(x);
-                        } else if(ac == 2) {
-                            // what if they just suck and don't have any potions
-                            int pc = Tools.intInput("[1]heal potion\n[2]poison potion\n[3]freeze potion\n");
-                            String nm = "";
+                        } else if(ac == 2 && potionCount > 0) {
+                            prompt = "";
+                            if(p.countItem("heal") > 0)
+                                prompt += "[1]heal potion\n";
+                            if(p.countItem("poison") > 0)
+                                prompt += "[2]poison potion\n";
+                            if(p.countItem("freeze") > 0)
+                                prompt += "[3]freeze potion\n";
+                            int pc = Tools.intInput(prompt);
+                            while(pc < 1 || pc > 3) {
+                                pc = Tools.intInput("invalid, pick another: ");
+                            }
+                            String nm = (new String[]{"heal", "poison", "freeze"})[pc-1];
+                            while(p.countItem(nm) == 0) {
+                                pc = Tools.intInput("invalid, pick another: ");
+                                while(pc < 1 || pc > 3) {
+                                    pc = Tools.intInput("invalid, pick another: ");
+                                }
+                                nm = (new String[]{"heal", "poison", "freeze"})[pc-1];
+                            }
                             ArrayList<Potion> potions = new ArrayList<Potion>();
-                            if(pc == 1)
-                                nm = "heal";
-                            else if(pc == 2)
-                                nm = "poison";
-                            else if(pc == 3)
-                                nm = "freeze";
                             i = 0;
                             for(Item y : p.inventory) {
-                                if(y instanceof Potion) {
-                                    if(((Potion)y).name.startsWith(nm)) {
-                                        potions.add((Potion)y);
-                                        System.out.println(i + ": " + (Potion)y);
-                                        i++;
-                                    }
+                                if(y instanceof Potion && y.id.equals(nm)) {
+                                    potions.add((Potion)y);
+                                    System.out.println(i + ": " + (Potion)y);
+                                    i++;
                                 }
                             }
                             int wpc = Tools.intInput("pick a potion(index): ");
-                            while(wpc < 0 && wpc >= potions.size()) {
+                            while(wpc < 0 || wpc >= potions.size()) {
                                 wpc = Tools.intInput("pick a potion(index): ");
                             }
                             Potion pot = potions.get(wpc);
@@ -78,9 +91,11 @@ public class Main {
                             } else if(pot instanceof PoisonPot) {
                                 x.getPoison((PoisonPot)pot);
                             }
+                            p.inventory.remove((Item)pot);
                         }
-
-                        x.attack(p);
+                        if(!x.froze) {
+                            x.attack(p);
+                        }
                         x.takeFreeze();
                         x.takePoison();
                         Tools.waitEnter();
@@ -97,11 +112,16 @@ public class Main {
                 }
                 Tools.waitEnter();
             } else if(c.equals("2")) {
-                // add item dropability
-                for(Item x : p.inventory) {
-                    System.out.println(x);
+                for(int i = 0; i < p.inventory.size(); i++) {
+                    System.out.println(i + ": " + p.inventory.get(i));
                 }
-                Tools.waitEnter();
+                int ic = Tools.intInput("pick an item to drop(index, -1 to exit): ");
+                while(ic < -1 || ic >= p.inventory.size()) {
+                    ic = Tools.intInput("pick an item to drop(index, -1 to exit): ");
+                }
+                if(ic != -1) {
+                    p.inventory.remove(ic);
+                }
             } else if(c.equals("3")) {
                 Item item = items[(int)(Math.random()*items.length)];
                 p.addInv(item, true);

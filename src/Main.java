@@ -5,10 +5,11 @@ public class Main {
         // String name = Tools.input("whats your name? ");
         String name = "streamline";
         int level = 1;
-        Player p = new Player(100, 10, name);
+        Player p = new Player(100, 1, name);
         Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
         while(true) {
             Tools.clear();
+            System.out.println("wsg " + p.name);
             String c = Tools.input("[1]play(level " + level + ")\n[2]inventory\n[3]explore\n[4]exit\n");
             if(c.equals("1")) {
                 Enemy[] currlevel = Levels.levels()[level-1];
@@ -39,6 +40,8 @@ public class Main {
                     Enemy x = currlevel[j];
                     while(x.health > 0 && p.health > 0) {
                         Tools.clear();
+                        p.takeFreeze();
+                        p.takePoison();
                         System.out.println("level " + level);
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
@@ -46,14 +49,22 @@ public class Main {
                         System.out.println("(" + j + ")" + x.type.toUpperCase());
                         x.printStats();
                         int potionCount = p.countItem("freeze,heal,poison");
-                        String prompt = "[1]attack\n";
-                        if(potionCount > 0)
+                        String prompt = "";
+                        if(!p.froze) {
+                            prompt = "[1]attack\n";
+                        } else {
+                            System.out.print("frozen, ");
+                            Tools.waitEnter();
+                        }
+                        if(potionCount > 0 && !p.froze)
                             prompt += "[2]potion\n";
-                        int ac = Tools.intInput(prompt);
+                        int ac = 0;
+                        if(!p.froze)
+                            ac = Tools.intInput(prompt);
                         boolean enemyAtk = true;
-                        if(ac == 1) {
+                        if(ac == 1 && !p.froze) {
                             p.attack(x);
-                        } else if(ac == 2 && potionCount > 0) {
+                        } else if(ac == 2 && potionCount > 0 && !p.froze) {
                             prompt = "";
                             if(p.countItem("heal") > 0)
                                 prompt += "[1]heal potion\n";
@@ -103,6 +114,7 @@ public class Main {
                         }
                         if(!x.froze && enemyAtk) {
                             x.attack(p);
+                            x.effects(p);
                         }
                         x.takeFreeze();
                         x.takePoison();

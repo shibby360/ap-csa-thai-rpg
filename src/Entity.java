@@ -22,11 +22,9 @@ public class Entity {
         } else {
             System.out.println("damage: " + damage);
         }
-        if(this instanceof Enemy) {
-            System.out.println("poison left: " + poisonLeft);
-            System.out.println("freeze left: " + freezeLeft);
-        }
-        System.out.println("health: (" + health + "/" + maxHealth + ")\033[0;32m" + "-".repeat(health) + "\033[0m" + "-".repeat(maxHealth-health));
+        System.out.println("poison left: " + poisonLeft);
+        System.out.println("freeze left: " + freezeLeft);
+        System.out.println("health: (" + health + "/" + maxHealth + ")\033[0;32m" + "-".repeat(health) + "\033[0m" + "-".repeat(Math.max(maxHealth-health,0)));
     }
     public void takePoison() {
         if(!poisoned)

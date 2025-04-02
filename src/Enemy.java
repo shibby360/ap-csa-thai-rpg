@@ -25,15 +25,11 @@ public class Enemy extends Entity {
         poisonPot = new PoisonPot(poiD, poiL);
     }
     public void effects(Entity e) {
-        System.out.println(poisonChance);
         if(Math.random()*10 < poisonChance) {
-            System.out.println("poisoned");
             e.getFreeze(freezePot);
         }
         if(Math.random()*10 < freezeChance) {
-            System.out.println("frozen");
             e.getPoison(poisonPot);
         }
-        Tools.waitEnter();
     }
 }

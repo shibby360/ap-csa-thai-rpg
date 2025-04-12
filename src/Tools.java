@@ -43,4 +43,21 @@ public class Tools {
         }
         return true;
     }
+    public static void wait(int millis) {
+        try {
+            Thread.sleep(millis); // Pause execution for 2000 milliseconds (2 seconds)
+        } catch (InterruptedException e) {
+            // Handle the exception if the sleep is interrupted
+            e.printStackTrace();
+        }
+    }
+    public static void slowPrint(String str) {
+        for(int i = 0; i < str.length(); i++) {
+            System.out.print(str.substring(i, i+1));
+            wait(50);
+        }
+    }
+    public static void slowPrintln(String str) {
+        slowPrint(str+'\n');
+    }
 }

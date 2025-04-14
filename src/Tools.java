@@ -75,4 +75,7 @@ public class Tools {
     public static String colorText(String txt, String fgbg, int r, int g, int b) {
         return color(fgbg, r, g, b) + txt + color("",0,0,0);
     }
+    public static int randInt(int a, int b) {
+        return (int)(Math.random()*(b-a)) + a;
+    }
 }

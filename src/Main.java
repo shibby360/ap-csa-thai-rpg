@@ -6,8 +6,28 @@ public class Main {
         String name = "streamline";
         int level = 1;
         Player p = new Player(100, 1, name);
-        Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
-        System.out.print(Tools.color("fg", 0, 255, 0));
+        // Weapon[] allWeapons = {new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
+        Weapon[] allWeapons = {new Weapon(5, "swArd")};
+        ArrayList<Item> items = new ArrayList<Item>();
+        for(Weapon w : allWeapons) {
+            items.add((Item)w);
+        }
+        for(int i = 0; i < 3; i++) {
+            items.add(
+                (Item)(new DamagePot(Tools.randInt(5, 15)))
+            );
+            items.add(
+                (Item)(new FreezePot(Tools.randInt(2, 5)))
+            );
+            items.add(
+                (Item)(new HealPot(Tools.randInt(5, 15)))
+            );
+            items.add(
+                (Item)(new PoisonPot(Tools.randInt(5, 15), Tools.randInt(2, 5)))
+            );
+        }
+        Tools.clear();
+        System.out.print(Tools.color("fg", 33, 131, 0));
         Tools.slowPrintln("hi, " + name);
         Tools.wait(250);
         Tools.slowPrintln("you're in a forest and you have to fight all the monsters to get through");
@@ -54,6 +74,7 @@ public class Main {
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
                         p.printStats();
+                        System.out.println();
                         System.out.println("(" + j + ")" + x.type.toUpperCase());
                         x.printStats();
                         int potionCount = p.countItem("freeze,heal,poison");
@@ -156,7 +177,7 @@ public class Main {
                     p.inventory.remove(ic);
                 }
             } else if(c.equals("3")) {
-                Item item = items[(int)(Math.random()*items.length)];
+                Item item = items.get((int)(Tools.randInt(0, items.size())));
                 p.addInv(item, true);
                 Tools.waitEnter();
             } else if(c.equals("4")) {

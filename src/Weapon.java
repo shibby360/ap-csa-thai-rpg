@@ -10,7 +10,7 @@ public class Weapon extends Item {
         id = "weapon";
     }
     public String toString() {
-        return "weapon:"+this.name + ";damage: " + this.getDmg() + ";level: " + (int)level + ", " + (int)((level-(int)level)*5) + "/5";
+        return "weapon:"+this.name + ";damage: " + this.getDmg() + ";level: " + (int)level + ", " + Math.round(((level-(int)level)*5)) + "/5";
     }
     public int getDmg() {
         return damage + 2*(((int)level)-1);

@@ -7,12 +7,14 @@ public class Main {
         int level = 1;
         Player p = new Player(100, 1, name);
         Item[] items = {new FreezePot(2), new HealPot(10), new DamagePot(10), new PoisonPot(5, 3), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
+        System.out.print(Tools.color("fg", 0, 255, 0));
         Tools.slowPrintln("hi, " + name);
         Tools.wait(250);
         Tools.slowPrintln("you're in a forest and you have to fight all the monsters to get through");
         Tools.wait(250);
         Tools.slowPrintln("beat the levels to fight the monsters, and explore in the forest to get potions and weapons for your inventory");
         Tools.waitEnter();
+        System.out.print(Tools.color("", 0, 0, 0));
         while(true) {
             Tools.clear();
             System.out.println("wsg " + p.name);

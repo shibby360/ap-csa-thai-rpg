@@ -60,4 +60,19 @@ public class Tools {
     public static void slowPrintln(String str) {
         slowPrint(str+'\n');
     }
+    public static String color(String fgbg, int r, int g, int b) {
+        String end = "\033[";
+        if(fgbg.equals("fg")) {
+            end += "38;2;";
+        } else if(fgbg.equals("bg")) {
+            end += "48;2;";
+        } else {
+            return "\033[0m";
+        }
+        end += r+";"+g+";"+b+"m";
+        return end;
+    }
+    public static String colorText(String txt, String fgbg, int r, int g, int b) {
+        return color(fgbg, r, g, b) + txt + color("",0,0,0);
+    }
 }

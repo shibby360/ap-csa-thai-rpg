@@ -26,14 +26,13 @@ public class Main {
                 (Item)(new PoisonPot(Tools.randInt(5, 15), Tools.randInt(2, 5)))
             );
         }
+        NPC guide = new NPC("guide", new String[]{"you're in a forest and you have to fight all the monsters to get through", "beat the levels to fight the monsters, and explore in the forest to get potions and weapons for your inventory", "tips:", "\tindex means the number at the beginning, before the colon"});
+        NPC explorer = new NPC("explorer", new String[]{"here you can find different potions and weapons"});
         Tools.clear();
         System.out.print(Tools.color("fg", 33, 131, 0));
         Tools.slowPrintln("hi, " + name);
         Tools.wait(250);
-        Tools.slowPrintln("you're in a forest and you have to fight all the monsters to get through");
-        Tools.wait(250);
-        Tools.slowPrintln("beat the levels to fight the monsters, and explore in the forest to get potions and weapons for your inventory");
-        Tools.waitEnter();
+        guide.meet();
         System.out.print(Tools.color("", 0, 0, 0));
         while(true) {
             Tools.clear();
@@ -177,6 +176,7 @@ public class Main {
                     p.inventory.remove(ic);
                 }
             } else if(c.equals("3")) {
+                explorer.meet();
                 Item item = items.get((int)(Tools.randInt(0, items.size())));
                 p.addInv(item, true);
                 Tools.waitEnter();

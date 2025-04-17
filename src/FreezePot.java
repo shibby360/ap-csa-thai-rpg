@@ -6,6 +6,6 @@ public class FreezePot extends Potion {
         id = "freeze";
     }
     public String toString() {
-        return super.toString() + ";freeze length: " + this.length;
+        return super.toString() + "\n\tfreeze length: " + this.length;
     }
 }

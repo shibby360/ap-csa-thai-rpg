@@ -1,13 +1,36 @@
 import java.util.ArrayList;
-
+// maybe add infinite mode
+// maybe add harder/more levels
 public class Main {
     public static void main(String[] args) {
-        // String name = Tools.input("whats your name? ");
-        String name = "streamline";
+        String name = Tools.input("whats your name? ");
         int level = 1;
         Player p = new Player(100, 1, name);
-        Weapon[] allWeapons = {new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(3, "🪵Wooden Sword🪵"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"), new Weapon(5, "🏹Simple Bow🏹"),new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(5, "⚔️Iron Sword⚔️"), new Weapon(8, "💎Diamond Sword💎"),new Weapon(8, "💎Diamond Sword💎"), new Weapon(20, "˚. ୭ ˚○◦˚✨Shivaurium Sword✨˚◦○˚ ୧ .˚ₓx"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(8, "⚡Charged Bow⚡"), new Weapon(10, "🔥Flame Bow🔥"),new Weapon(10, "🔥Flame Bow🔥"), new Weapon(22, "˚. ୭ ˚○◦˚✨Shivaurium Bow✨˚◦○˚ ୧ .˚ₓx")};
-        // Weapon[] allWeapons = {new Weapon(5, "swArd")};
+        // redo weapons
+        Weapon[] allWeapons = {
+            new Weapon(3, "🪵 Wooden Sword🪵 "), 
+            new Weapon(3, "🪵 Wooden Sword🪵 "), 
+            new Weapon(3, "🪵 Wooden Sword🪵 "), 
+            new Weapon(3, "🪵 Wooden Sword🪵 "), 
+            new Weapon(3, "🪵 Wooden Sword🪵 "), 
+            new Weapon(5, "🏹 Simple Bow 🏹"), 
+            new Weapon(5, "🏹 Simple Bow 🏹"), 
+            new Weapon(5, "🏹 Simple Bow 🏹"), 
+            new Weapon(5, "🏹 Simple Bow 🏹"), 
+            new Weapon(5, "🏹 Simple Bow 🏹"), 
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
+            new Weapon(8, "💎Diamond Sword💎"),
+            new Weapon(8, "💎Diamond Sword💎"), 
+            new Weapon(20, "˚. ୭ ˚○◦˚✨ ⚔️ Shivaurium Sword ⚔️ ✨˚◦○˚ ୧ .˚ₓx"),
+            new Weapon(8, "⚡Charged Bow⚡"), 
+            new Weapon(8, "⚡Charged Bow⚡"), 
+            new Weapon(8, "⚡Charged Bow⚡"), 
+            new Weapon(10, "🔥Flame Bow🔥"),
+            new Weapon(10, "🔥Flame Bow🔥"), 
+            new Weapon(22, "˚. ୭ ˚○◦˚✨🏹Shivaurium Bow🏹✨˚◦○˚ ୧ .˚ₓx")
+        };
         ArrayList<Item> items = new ArrayList<Item>();
         for(Weapon w : allWeapons) {
             items.add((Item)w);
@@ -30,13 +53,15 @@ public class Main {
         NPC explorer = new NPC("explorer", new String[]{"here you can find different potions and weapons"});
         Tools.clear();
         System.out.print(Tools.color("fg", 33, 131, 0));
-        Tools.slowPrintln("hi, " + name);
+        Tools.slowPrintln("hi, " + p.name);
         Tools.wait(250);
-        guide.meet();
+        if(!p.name.equals("dev")) {
+            guide.meet();
+        }
         System.out.print(Tools.color("", 0, 0, 0));
         while(true) {
             Tools.clear();
-            System.out.println("wsg " + p.name);
+            System.out.println("hi " + p.name);
             String c = Tools.input("[1]play(level " + level + ")\n[2]inventory\n[3]explore\n[4]exit\n");
             if(c.equals("1")) {
                 Enemy[] currlevel = Levels.levels()[level-1];
@@ -70,12 +95,14 @@ public class Main {
                         p.takeFreeze();
                         p.takePoison();
                         System.out.println("level " + level);
+                        System.out.println("input -1 at any time to skip/reset turn");
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
                         p.printStats();
                         System.out.println();
                         System.out.println("(" + j + ")" + x.type.toUpperCase());
                         x.printStats();
+                        boolean enemyTurn = true;
                         int potionCount = p.countItem("freeze,heal,poison");
                         String prompt = "";
                         if(!p.froze) {
@@ -89,7 +116,9 @@ public class Main {
                         int ac = 0;
                         if(!p.froze)
                             ac = Tools.intInput(prompt);
-                        boolean enemyAtk = true;
+                        if(ac == -1) {
+                            enemyTurn = false;
+                        } 
                         if(ac == 1 && !p.froze) {
                             p.attack(x);
                         } else if(ac == 2 && potionCount > 0 && !p.froze) {
@@ -101,13 +130,21 @@ public class Main {
                             if(p.countItem("freeze") > 0)
                                 prompt += "[3]freeze potion\n";
                             int pc = Tools.intInput(prompt);
-                            while(pc < 1 || pc > 3) {
+                            if(pc == -1) {
+                                enemyTurn = false;
+                                continue;
+                            }
+                            while(enemyTurn && (pc < 1 || pc > 3)) {
                                 pc = Tools.intInput("invalid, pick another: ");
                             }
                             String nm = (new String[]{"heal", "poison", "freeze"})[pc-1];
                             while(p.countItem(nm) == 0) {
                                 pc = Tools.intInput("invalid, pick another: ");
-                                while(pc < 1 || pc > 3) {
+                                if(pc == -1) {
+                                    enemyTurn = false;
+                                    continue;
+                                }
+                                while(enemyTurn && (pc < 1 || pc > 3)) {
                                     pc = Tools.intInput("invalid, pick another: ");
                                 }
                                 nm = (new String[]{"heal", "poison", "freeze"})[pc-1];
@@ -122,7 +159,11 @@ public class Main {
                                 }
                             }
                             int wpc = Tools.intInput("pick a potion(index): ");
-                            while(wpc < 0 || wpc >= potions.size()) {
+                            if(wpc == -1) {
+                                enemyTurn = false;
+                                continue;
+                            }
+                            while(enemyTurn && (wpc < 0 || wpc >= potions.size())) {
                                 wpc = Tools.intInput("pick a potion(index): ");
                             }
                             Potion pot = potions.get(wpc);
@@ -130,7 +171,7 @@ public class Main {
                                 x.getFreeze((FreezePot)pot);
                             } else if(pot instanceof HealPot) {
                                 p.health += ((HealPot)pot).heal;
-                                enemyAtk = false;
+                                enemyTurn = false;
                             } else if(pot instanceof PoisonPot) {
                                 x.getPoison((PoisonPot)pot);
                             }
@@ -140,7 +181,7 @@ public class Main {
                         if(x.health <= 0) {
                             continue;
                         }
-                        if(!x.froze && enemyAtk) {
+                        if(!x.froze && enemyTurn) {
                             x.attack(p);
                             x.effects(p);
                         }
@@ -176,7 +217,9 @@ public class Main {
                     p.inventory.remove(ic);
                 }
             } else if(c.equals("3")) {
-                explorer.meet();
+                if(!p.name.equals("dev")) {
+                    explorer.meet();
+                }
                 Item item = items.get((int)(Tools.randInt(0, items.size())));
                 p.addInv(item, true);
                 Tools.waitEnter();

@@ -29,7 +29,7 @@ public class Tools {
         return false;
     }
     public static boolean isInt(String str) {
-        if(str.length() == 0) {
+        if(str.length() == 0 || str.equals("-")) {
             return false;
         }
         if(str.substring(0,1).equals("-")) {

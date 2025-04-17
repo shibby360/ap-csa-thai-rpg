@@ -6,7 +6,7 @@ public class DamagePot extends Potion {
         id = "damage";
     }
     public String toString() {
-        return super.toString() + ";damage: " + this.boost;
+        return super.toString() + "\n\tdamage: " + this.boost;
     }
     public void use(Player p) {
     }

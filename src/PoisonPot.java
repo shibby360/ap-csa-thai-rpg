@@ -8,6 +8,6 @@ public class PoisonPot extends Potion {
         id = "poison";
     }
     public String toString() {
-        return super.toString() + ";damage: " + this.damage + ";poison length: " + this.length;
+        return super.toString() + "\n\tdamage: " + this.damage + "\n\tpoison length: " + this.length;
     }
 }

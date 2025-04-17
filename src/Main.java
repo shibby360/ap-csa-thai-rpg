@@ -55,7 +55,7 @@ public class Main {
         System.out.print(Tools.color("fg", 33, 131, 0));
         Tools.slowPrintln("hi, " + p.name);
         Tools.wait(250);
-        if(!p.name.equals("dev")) {
+        if(!p.name.equals("admin")) {
             guide.meet();
         }
         System.out.print(Tools.color("", 0, 0, 0));
@@ -76,26 +76,30 @@ public class Main {
                 }
                 System.out.println("current: " + p.weapon);
                 if(weapons.size() != 0) {
-                    int wc = Tools.intInput("pick a weapon(index, -1 for current): ");
-                    while(wc < -1 || wc >= weapons.size()) {
-                        wc = Tools.intInput("pick a weapon(index, -1 for current): ");
+                    int wc = Tools.intInput("pick a weapon(index, -1 for current, -2 to exit): ");
+                    while(wc < -2 || wc >= weapons.size()) {
+                        wc = Tools.intInput("pick a weapon(index, -1 for current, -2 to exit): ");
                     }
                     if(wc == -1) {
                         p.battlePrep();
+                    } else if(wc == -2) {
+                        continue;
                     } else {
                         p.battlePrep(weapons.get(wc));
                     }
                 } else {
                     p.battlePrep();
                 }
-                for(int j = 0; j < currlevel.length; j++) {
+                boolean battling = true;
+                for(int j = 0; j < currlevel.length && battling; j++) {
                     Enemy x = currlevel[j];
-                    while(x.health > 0 && p.health > 0) {
+                    while(x.health > 0 && p.health > 0 && battling) {
                         Tools.clear();
                         p.takeFreeze();
                         p.takePoison();
                         System.out.println("level " + level);
                         System.out.println("input -1 at any time to skip/reset turn");
+                        System.out.println("input -2 when picking attack/potion to exit battle");
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
                         p.printStats();
@@ -118,7 +122,11 @@ public class Main {
                             ac = Tools.intInput(prompt);
                         if(ac == -1) {
                             enemyTurn = false;
-                        } 
+                        } else if(ac == -2) {
+                            System.out.println("left battle");
+                            battling = false;
+                            break;
+                        }   
                         if(ac == 1 && !p.froze) {
                             p.attack(x);
                         } else if(ac == 2 && potionCount > 0 && !p.froze) {
@@ -195,7 +203,7 @@ public class Main {
                         break;
                     }
                 }
-                if(p.health > 0) {
+                if(p.health > 0 && battling) {
                     System.out.println("you killed them all yay");
                     if(level == Levels.levels().length) {
                         System.out.println("you finished the whole game yay");
@@ -217,7 +225,7 @@ public class Main {
                     p.inventory.remove(ic);
                 }
             } else if(c.equals("3")) {
-                if(!p.name.equals("dev")) {
+                if(!p.name.equals("admin")) {
                     explorer.meet();
                 }
                 Item item = items.get((int)(Tools.randInt(0, items.size())));

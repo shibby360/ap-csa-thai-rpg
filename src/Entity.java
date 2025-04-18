@@ -22,8 +22,12 @@ public class Entity {
         } else {
             System.out.println("damage: " + damage);
         }
-        System.out.println("poison left: " + poisonLeft);
-        System.out.println("freeze left: " + freezeLeft);
+        if(poisonLeft > 0) {
+            System.out.println("poison left: " + poisonLeft);
+        }
+        if(freezeLeft > 0) {
+            System.out.println("freeze left: " + freezeLeft);
+        }
         System.out.println("health: (" + health + "/" + maxHealth + ") " + Tools.colorText("█".repeat(health), "fg", 33, 131, 0) + "█".repeat(Math.max(maxHealth-health,0)));
     }
     public void takePoison() {

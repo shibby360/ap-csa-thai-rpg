@@ -12,6 +12,12 @@ public class Tools {
             System.out.print(prompt);
             e = scanner.nextLine(); 
         }
+        if(isInt(e)) {
+            while(e.length() > 4) {
+                System.out.print(prompt);
+                e = scanner.nextLine();
+            }
+        }
         return Integer.parseInt(e);
     }
     public static void waitEnter() {

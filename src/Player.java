@@ -33,11 +33,6 @@ public class Player extends Entity {
         }
     }
     public void addInv(Item i, boolean msg) {
-        if(inventory.size() >= 10) {
-            if(msg)
-                System.out.println("inventory full");
-            return;
-        } 
         if(i instanceof Weapon) {
             for(Item x : inventory) {
                 if(x instanceof Weapon) {
@@ -50,14 +45,24 @@ public class Player extends Entity {
                     }
                 }
             }
+            if(inventory.size() >= 10) {
+                if(msg)
+                    System.out.println("inventory full(keep rolling, you might be able to upgrade a weapon)");
+            } else {
+                inventory.add(i);
+                if(msg)
+                    System.out.println("You got a " + i);
+            }
+            return;
+        }
+        if(inventory.size() >= 10) {
+            if(msg)
+                System.out.println("inventory full(keep rolling, you might be able to upgrade a weapon)");
+        } else {
             inventory.add(i);
             if(msg)
                 System.out.println("You got a " + i);
-            return;
         }
-        inventory.add(i);
-        if(msg)
-            System.out.println("You got a " + i);
     }
     public int countItem(String types) {
         int i = 0;

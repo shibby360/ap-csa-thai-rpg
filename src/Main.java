@@ -8,27 +8,27 @@ public class Main {
         Player p = new Player(100, 1, name);
         // redo weapons
         Weapon[] allWeapons = {
-            new Weapon(3, "🪵 Wooden Sword🪵 "), 
-            new Weapon(3, "🪵 Wooden Sword🪵 "), 
-            new Weapon(3, "🪵 Wooden Sword🪵 "), 
-            new Weapon(3, "🪵 Wooden Sword🪵 "), 
-            new Weapon(3, "🪵 Wooden Sword🪵 "), 
-            new Weapon(5, "🏹 Simple Bow 🏹"), 
-            new Weapon(5, "🏹 Simple Bow 🏹"), 
-            new Weapon(5, "🏹 Simple Bow 🏹"), 
-            new Weapon(5, "🏹 Simple Bow 🏹"), 
-            new Weapon(5, "🏹 Simple Bow 🏹"), 
-            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
-            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
-            new Weapon(5, "⚔️ Iron Sword ⚔️ "), 
+            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(5, "🏹 Simple Bow 🏹"),
+            new Weapon(5, "🏹 Simple Bow 🏹"),
+            new Weapon(5, "🏹 Simple Bow 🏹"),
+            new Weapon(5, "🏹 Simple Bow 🏹"),
+            new Weapon(5, "🏹 Simple Bow 🏹"),
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "),
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "),
+            new Weapon(5, "⚔️ Iron Sword ⚔️ "),
             new Weapon(8, "💎Diamond Sword💎"),
-            new Weapon(8, "💎Diamond Sword💎"), 
+            new Weapon(8, "💎Diamond Sword💎"),
             new Weapon(20, "˚. ୭ ˚○◦˚✨ ⚔️ Shivaurium Sword ⚔️ ✨˚◦○˚ ୧ .˚ₓx"),
-            new Weapon(8, "⚡Charged Bow⚡"), 
-            new Weapon(8, "⚡Charged Bow⚡"), 
-            new Weapon(8, "⚡Charged Bow⚡"), 
+            new Weapon(8, "⚡Charged Bow⚡"),
+            new Weapon(8, "⚡Charged Bow⚡"),
+            new Weapon(8, "⚡Charged Bow⚡"),
             new Weapon(10, "🔥Flame Bow🔥"),
-            new Weapon(10, "🔥Flame Bow🔥"), 
+            new Weapon(10, "🔥Flame Bow🔥"),
             new Weapon(22, "˚. ୭ ˚○◦˚✨🏹Shivaurium Bow🏹✨˚◦○˚ ୧ .˚ₓx")
         };
         ArrayList<Item> items = new ArrayList<Item>();
@@ -99,7 +99,6 @@ public class Main {
                         p.takePoison();
                         System.out.println("level " + level);
                         System.out.println("input -1 at any time to skip/reset turn");
-                        System.out.println("input -2 when picking attack/potion to exit battle");
                         System.out.println(p.weapon);
                         System.out.println("boost: " + p.getDmgBoost());
                         p.printStats();
@@ -108,9 +107,9 @@ public class Main {
                         x.printStats();
                         boolean enemyTurn = true;
                         int potionCount = p.countItem("freeze,heal,poison");
-                        String prompt = "";
+                        String prompt = "[-2]leave battle\n";
                         if(!p.froze) {
-                            prompt = "[1]attack\n";
+                            prompt += "[1]attack\n";
                         } else {
                             System.out.print("frozen, ");
                             Tools.waitEnter();
@@ -120,6 +119,9 @@ public class Main {
                         int ac = 0;
                         if(!p.froze)
                             ac = Tools.intInput(prompt);
+                            while(ac < -2 || ac > 2) {
+                                ac = Tools.intInput(prompt);
+                            }
                         if(ac == -1) {
                             enemyTurn = false;
                         } else if(ac == -2) {

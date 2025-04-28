@@ -18,7 +18,7 @@ public class Entity {
     }
     public void printStats() {
         if(this instanceof Player && ((Player)this).weapon != null) {
-            System.out.println("damage: " + ((Player)this).weapon.getDmg());
+            System.out.println("damage: " + (((Player)this).weapon.getDmg() + ((Player)this).getDmgBoost()));
         } else {
             System.out.println("damage: " + damage);
         }

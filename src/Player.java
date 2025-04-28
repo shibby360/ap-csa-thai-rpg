@@ -45,19 +45,10 @@ public class Player extends Entity {
                     }
                 }
             }
-            if(inventory.size() >= 10) {
-                if(msg)
-                    System.out.println("inventory full(keep rolling, you might be able to upgrade a weapon)");
-            } else {
-                inventory.add(i);
-                if(msg)
-                    System.out.println("You got a " + i);
-            }
-            return;
         }
         if(inventory.size() >= 10) {
             if(msg)
-                System.out.println("inventory full(keep rolling, you might be able to upgrade a weapon)");
+                System.out.println("inventory full(you can keep rolling, you might be able to upgrade a weapon)");
         } else {
             inventory.add(i);
             if(msg)

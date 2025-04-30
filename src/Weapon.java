@@ -1,18 +1,44 @@
 public class Weapon extends Item {
-    int damage;
-    String name;
-    double level = 1.0;
+    private int damage;
+    private String name;
+    private double level = 1.0;
 
-    public Weapon(int damage, String name){
-        usable = false;
+    public Weapon(int damage, String name) {
+        setUsable(false);
         this.damage = damage;
         this.name = name;
-        id = "weapon";
+        setId("weapon");
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getLevel() {
+        return level;
+    }
+
+    public void setLevel(double level) {
+        this.level = level;
+    }
+
     public String toString() {
-        return "weapon: "+this.name + "\n\tdamage: " + this.getDmg() + "\n\tlevel: " + (int)level + ", " + Math.round(((level-(int)level)*5)) + "/5";
+        return "weapon: " + this.name + "\n\tdamage: " + this.getDmg() + "\n\tlevel: " + (int) level + ", " + Math.round(((level - (int) level) * 5)) + "/5";
     }
+
     public int getDmg() {
-        return damage + 2*(((int)level)-1);
+        return damage + 2 * (((int) level) - 1);
     }
 }

@@ -1,10 +1,20 @@
 public class FreezePot extends Potion {
-    int length;
+    private int length;
+
     public FreezePot(int l) {
-        length = l;
-        name = "freezing potion";
-        id = "freeze";
+        this.length = l;
+        setName("freezing potion");
+        setId("freeze");
     }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
     public String toString() {
         return super.toString() + "\n\tfreeze length: " + this.length;
     }

@@ -1,10 +1,20 @@
 public class HealPot extends Potion {
-    int heal;
+    private int heal;
+
     public HealPot(int h) {
-        heal = h;
-        name = "healing potion";
-        id = "heal";
+        this.heal = h;
+        setName("healing potion");
+        setId("heal");
     }
+
+    public int getHeal() {
+        return heal;
+    }
+
+    public void setHeal(int heal) {
+        this.heal = heal;
+    }
+
     public String toString() {
         return super.toString() + "\n\theal: " + this.heal;
     }

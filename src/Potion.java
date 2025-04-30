@@ -1,13 +1,22 @@
 public class Potion extends Item {
-    String name;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Potion() {
-        usable = true;
-        id = "potion";
+        setUsable(true);
+        setId("potion");
     }
+
     public String toString() {
-        return "potion:"+this.name;
+        return "potion:" + this.name;
     }
-    public void use(Player p) {
-        
-    }
+
+    public void use(Player p) {}
 }

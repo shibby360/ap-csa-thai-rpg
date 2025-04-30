@@ -1,12 +1,30 @@
 public class PoisonPot extends Potion {
-    int damage;
-    int length;
+    private int damage;
+    private int length;
+
     public PoisonPot(int d, int l) {
-        damage = d;
-        length = l;
-        name = "poison potion";
-        id = "poison";
+        this.damage = d;
+        this.length = l;
+        setName("poison potion");
+        setId("poison");
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
     public String toString() {
         return super.toString() + "\n\tdamage: " + this.damage + "\n\tpoison length: " + this.length;
     }

@@ -8,11 +8,11 @@ public class Main {
         Player p = new Player(100, 1, name);
         // redo weapons
         Weapon[] allWeapons = {
-            new Weapon(3, "🪵 Wooden Sword🪵 "),
-            new Weapon(3, "🪵 Wooden Sword🪵 "),
-            new Weapon(3, "🪵 Wooden Sword🪵 "),
-            new Weapon(3, "🪵 Wooden Sword🪵 "),
-            new Weapon(3, "🪵 Wooden Sword🪵 "),
+            new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
+            new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
+            new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
+            new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
+            new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
             new Weapon(5, "🏹 Simple Bow 🏹"),
             new Weapon(5, "🏹 Simple Bow 🏹"),
             new Weapon(5, "🏹 Simple Bow 🏹"),
@@ -21,14 +21,14 @@ public class Main {
             new Weapon(5, "⚔️ Iron Sword ⚔️ "),
             new Weapon(5, "⚔️ Iron Sword ⚔️ "),
             new Weapon(5, "⚔️ Iron Sword ⚔️ "),
-            new Weapon(8, "💎Diamond Sword💎"),
-            new Weapon(8, "💎Diamond Sword💎"),
+            new Weapon(8, Tools.colorText("💎Diamond Sword💎", "fg", 0, 0, 128)),
+            new Weapon(8, Tools.colorText("💎Diamond Sword💎", "fg", 0, 0, 128)),
             new Weapon(20, "˚. ୭ ˚○◦˚✨ ⚔️ Shivaurium Sword ⚔️ ✨˚◦○˚ ୧ .˚ₓx"),
-            new Weapon(8, "⚡Charged Bow⚡"),
-            new Weapon(8, "⚡Charged Bow⚡"),
-            new Weapon(8, "⚡Charged Bow⚡"),
-            new Weapon(10, "🔥Flame Bow🔥"),
-            new Weapon(10, "🔥Flame Bow🔥"),
+            new Weapon(8, Tools.colorText("⚡Charged Bow⚡", "fg", 218, 165, 32)),
+            new Weapon(8, Tools.colorText("⚡Charged Bow⚡", "fg", 218, 165, 32)),
+            new Weapon(8, Tools.colorText("⚡Charged Bow⚡", "fg", 218, 165, 32)),
+            new Weapon(10, Tools.colorText("🔥Flame Bow🔥", "fg", 128, 0, 0)),
+            new Weapon(10, Tools.colorText("🔥Flame Bow🔥", "fg", 128, 0, 0)),
             new Weapon(22, "˚. ୭ ˚○◦˚✨🏹Shivaurium Bow🏹✨˚◦○˚ ୧ .˚ₓx")
         };
         ArrayList<Item> items = new ArrayList<Item>();

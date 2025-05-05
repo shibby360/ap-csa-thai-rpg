@@ -68,9 +68,9 @@ public class Tools {
     }
     public static String color(String fgbg, int r, int g, int b) {
         String end = "\033[";
-        if(fgbg.equals("fg")) {
+        if(fgbg.indexOf("fg") != -1) {
             end += "38;2;";
-        } else if(fgbg.equals("bg")) {
+        } else if(fgbg.indexOf("bg") != -1) {
             end += "48;2;";
         } else {
             return "\033[0m";

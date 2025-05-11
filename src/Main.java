@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         String name = Tools.input("whats your name? ");
         int level = 1;
-        Player p = new Player(100, 1, name);
+        Player p = new Player(100, 5, name);
         // redo weapons
         Weapon[] allWeapons = {
             new Weapon(3, Tools.colorText("🪵 Wooden Sword🪵 ", "fg", 210, 180, 140)),
@@ -64,6 +64,10 @@ public class Main {
             System.out.println("hi " + p.name);
             String c = Tools.input("[1]play(level " + level + ")\n[2]inventory\n[3]explore\n[4]exit\n");
             if(c.equals("1")) {
+                if(level >= Levels.levels().length) {
+                    System.out.println("you finished the whole game yay");
+                    break;
+                }
                 Enemy[] currlevel = Levels.levels()[level-1];
                 ArrayList<Weapon> weapons = new ArrayList<Weapon>();
                 int i = 0;
@@ -207,7 +211,7 @@ public class Main {
                 }
                 if(p.health > 0 && battling) {
                     System.out.println("you killed them all yay");
-                    if(level == Levels.levels().length) {
+                    if(level >= Levels.levels().length) {
                         System.out.println("you finished the whole game yay");
                         break;
                     } else {

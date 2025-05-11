@@ -64,7 +64,7 @@ public class Main {
             System.out.println("hi " + p.name);
             String c = Tools.input("[1]play(level " + level + ")\n[2]inventory\n[3]explore\n[4]exit\n");
             if(c.equals("1")) {
-                if(level >= Levels.levels().length) {
+                if(level > Levels.levels().length) {
                     System.out.println("you finished the whole game yay");
                     break;
                 }
